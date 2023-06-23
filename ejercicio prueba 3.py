@@ -20,7 +20,6 @@ while True:
         print ("ERROR =====> La opcion ingresada es incorrecta, intenta nuevamente")
         print("Presione una tecla para cargar nuevamente el MENU...")
         msvcrt.getch()  #comando para esperar tecla
-        continue
     print ("")
     print ("*********************************************\n")
     try:
@@ -44,12 +43,11 @@ while True:
             print ()
             print("Presione una tecla para continuar...")
             msvcrt.getch()
-            continue                
         if opc == 2:
             print ("")
             print ("Ingresar datos del pasajero.\n")
             nom_pasajero = str(input("Nombre y Apellidos: "))
-            rut = int(input("Ingrese numero de RUT (sin puntos ni guion):"))
+            rut = str(input("Ingrese numero de RUT (sin puntos y con guion):"))
             Tel = int (input("Numero telefonico: "))
             banco = (input ("Banco: "))
             print ("")
@@ -58,7 +56,6 @@ while True:
             asiento = int(input("Seleccione asiento: "))
             if asientos[asiento-1][1] != "libre":
                 print ("El asiento seleccionado ya esta vendido")
-                continue
             print ("")
             print ("*********************************************")
             if asiento >= 1 and asiento <= 30 and banco != 'duoc':
@@ -100,7 +97,6 @@ while True:
                 print ("No se genero ningun cargo, no se realiza la venta!!")
                 print("Presione una tecla para cargar nuevamente el MENU...")
                 msvcrt.getch()
-                continue
         if opc == 3:
             print ("**************Anulacion de vuelo**************\n")
             asiento = int(input("Indique asiento: "))
@@ -117,44 +113,54 @@ while True:
                     print ("Su vuelo fue anulado")
                     print("Presione una tecla para cargar nuevamente el MENU...")
                     msvcrt.getch()
-                    continue
                 else:
                     print ("El vuelo no fue anulado")
                     print("Presione una tecla para cargar nuevamente el MENU...")
                     msvcrt.getch()
-                    continue
             else:
                 print ("El asiento Nº",asiento,"No esta asignado a ningun pasajero")
                 print("Presione una tecla para cargar nuevamente el MENU...")
                 msvcrt.getch()
-                continue
         if opc == 4:
             print("Modificar datos de pasajero\n")
             print ("*********************************************")
             asiento = int(input("Ingrese numero asiento: "))
             if asientos[asiento-1][2] == nom_pasajero:
                 if asientos[asiento-1][3] == rut:
-                    print ("Este asiento esta asignado a:",nom_pasajero,"RUT:",rut)
+                    print ("Este asiento esta asignado a:",nom_pasajero,"RUT:",rut, "Telefono",Tel )
+                    opc = int(input("La informacion es correcta?? 1.- SI / 2.- NO: "))
+                    if opc == 1:
+                        print ("Que opcion desea cambiar\n")
+                        print ("1.- Nombre pasajero")
+                        print ("2.- Telefono")
+                        print ("3.- Desistir")
+                        opc = int(input())
+                        if opc ==1:
+                            nom_pasajero = input("Ingrese el nuevo nombre de pasajero: ")
+                            asientos[asiento-1][2] = nom_pasajero
+                            print ("Se cambio con exito el nombre del pasajero")
+                            print ("el nuevo nombre es:",asientos[asiento-1][2])
+                            print("Presione una tecla para continuar...")
+                            msvcrt.getch()
+                        if opc ==2:
+                            telef = int(input("Ingrese nuevo numero telefonico: "))
+                            asientos[asiento-1][4] = telef
+                            print ("Se cambio con exito el numero de telefono")
+                            print ("el nuevo numero es:",asientos[asiento-1][4])
+                            print("Presione una tecla para continuar...")
+                            msvcrt.getch()
+                        if opc == 3:
+                            print ("No se realizan modificaciones a los datos del pasajero")
+                            print("Presione una tecla para continuar...")
+                            msvcrt.getch()
+                    else:
+                        print ("No se realizan modificaciones a los datos del pasajero")
+                        print("Presione una tecla para continuar...")
+                        msvcrt.getch()
             if asientos[asiento-1][1] == "libre":
-                print ("El asiento ingresado esta libre")
+                print ("El asiento ingresado No esta asignado a ningun pasajero")
                 print("Presione una tecla para continuar...")
                 msvcrt.getch()
-                continue
-            rut = int(input("Ingrese el RUT: "))
-            if rut == asientos[asiento-1][3]:
-                print ("Que opcion desea cambiar\n")
-                print ("1.- Nombre pasajero")
-                print ("2.- Telefono")
-                opc = int(input())
-                if opc ==1:
-                    nom_pasajero = input("Ingrese el nuevo nombre de pasajero: ")
-                    asientos[asiento-1][2] = nom_pasajero
-                
-                if opc ==2:
-                    telef = int(input("Ingrese nuevo numero telefonico: "))
-                    asientos[asiento-1][4] = telef
-            else:
-                print("El rut ingresado no corresponde a un pasajero")
         if opc == 5:
             opc = int(input("Realmente desea salir del programa?? 1.- SI / 2.- NO: "))
             if opc ==1:
@@ -170,7 +176,6 @@ while True:
                 print ()
                 print("Presione una tecla para cargar nuevamente el MENU...")
                 msvcrt.getch()
-                continue
     except:
         print ("ERROR =====> Datos incorrecto")   
 
